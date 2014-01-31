@@ -1,0 +1,13 @@
+
+
+<head>
+    <title>Register</title>
+    <h1>Registration Page</h1>
+    <form action = "/producers/register/" method="post">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_p }}
+            </ul>
+        <input type= "submit" value="Register">
+    </form>
+</head>

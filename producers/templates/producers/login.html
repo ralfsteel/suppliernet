@@ -1,0 +1,14 @@
+
+
+  <h1>Login to Suppliernet</h1>
+          <form action="/producers/login/" method="post">
+              <h2>Please sign in</h2>
+               {% csrf_token %}
+              {{ form.as_p }}
+        {% if bad_details %}
+        <p><strong>Your username and/or password were incorrect!</strong></p>
+              {% endif %}
+              <br />
+        <button class="btn btn-primary" type="submit">Sign in</button>
+
+          </form>
