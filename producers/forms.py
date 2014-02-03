@@ -20,7 +20,7 @@ class LoginForm(forms.ModelForm):
 
      class Meta:
          model = Client
-         fields = ['name', 'password']
+         fields = ['email', 'password']
 
 
 

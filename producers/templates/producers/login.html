@@ -6,7 +6,7 @@
                {% csrf_token %}
               {{ form.as_p }}
         {% if bad_details %}
-        <p><strong>Your username and/or password were incorrect!</strong></p>
+        <p><strong>Your email and/or password were incorrect!</strong></p>
               {% endif %}
               <br />
         <button class="btn btn-primary" type="submit">Sign in</button>

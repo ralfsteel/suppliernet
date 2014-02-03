@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-
 from producers.models import Client, Pricelist, Promotional
 from producers.forms import RegisterForm, LoginForm
 
@@ -22,7 +21,7 @@ def customer(request):
 
 def register(request):
     context = RequestContext(request)
-    registerd = False
+    registered = False
     if request.method == 'POST':
         form = RegisterForm(data=request.POST)
         if form.is_valid():
@@ -36,33 +35,37 @@ def register(request):
 
     context_dict = {
         'form': form,
-        'registered': registerd
+        'registered': registered
     }
 
     return render_to_response('producers/register.html', context_dict, context)
 
 def login(request):
     context = RequestContext(request)
-    form = LoginForm(data=request.POST)
-
+    form = LoginForm()
     if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponse("logged in")
+            else:
+                return HttpResponse("Credentials not correct")
 
-        name = request.POST['name']
-        password = request.POST['password']
 
-        user = authenticate(name=name, password=password)
-        if user is not None:
-            auth.login(request, user)
-            return HttpResponse("logged in")
-        else:
-            print form.errors
-    else:
-        form = LoginForm()
     context_dict = {
         'form': form,
-
     }
 
     return render_to_response('producers/login.html', context_dict, context)
+
+def user_logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/producers/')
+
 
 
